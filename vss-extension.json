@@ -1,0 +1,112 @@
+{
+    "manifestVersion": 1,
+    "id": "#{Id}#",
+    "version": "#{Version}#",
+    "name": "DrawIo-Devops",
+    "description": "#{Description}#",
+    "publisher": "#{Publisher}#",
+    "public": false,
+    "categories": [
+        "Azure Boards"
+    ], 
+    "targets": [{
+        "id": "Microsoft.VisualStudio.Services"
+    }],
+    "icons": {
+        "default": "img/logo.png"
+    },
+    "screenshots": [{
+        "path": "img/screenshot1.gif"
+    }, {
+        "path": "img/screenshot2.png"
+    }, {
+        "path": "img/screenshot3.png"
+    }, {
+        "path": "img/screenshot4.png"
+    }],
+    "tags": [
+        "draw", "drawio", "diagrams", "uml", "flowchart", "classdiagram", "architecture", "diagramming", "draw.io", "embed", "flowchart"
+    ],
+    "links": {
+        "support": {
+            "uri": "https://github.com/Yusufmolla/drawio-devops/issues"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/Yusufmolla/drawio-devops"
+    },
+    "content": {
+        "details": {
+            "path": "Overview.md"
+        },
+        "license": {
+            "path": "License.md"
+        }
+    },
+    "branding": {
+        "color": "#212121",
+        "theme": "dark"
+    },
+    "contributions": [{
+        "id": "#{Id}#-feature",
+        "type": "ms.vss-web.feature",
+        "targets": [
+            "ms.vss-web.managed-features-onprem"
+        ],
+        "description": "Draw.io feature adds the new Draw.io hub to the Overview group.",
+        "properties": {
+            "name": "Draw.io",
+            "userConfigurable": true,
+            "hostConfigurable": true,
+            "defaultState": true,
+            "hostScopes": [
+                "project", null
+            ]
+        }
+    }, {
+        "id": "#{Id}#-hub",
+        "type": "ms.vss-web.hub",
+        "targets": [
+            "ms.vss-web.home-hub-group"
+        ],
+        "properties": {
+            "uri": "hub.html?v=#{Version}#",
+            "name": "Draw.io",
+            "iconName": "FlowChart",
+            "order": 1
+        },
+        "constraints": [{
+            "name": "Feature",
+            "properties": {
+                "featureId": "#{Publisher}#.#{Id}#.#{Id}#-feature"
+            }
+        }]
+    }, {
+        "id": "#{Id}#-commit",
+        "type": "ms.vss-web.external-content",
+        "description": "Commit dialog",
+        "properties": {
+            "uri": "commit.html?v=#{Version}#"
+        }
+    }, {
+        "id": "#{Id}#-createfile",
+        "type": "ms.vss-web.external-content",
+        "description": "Create file dialog",
+        "properties": {
+            "uri": "createfile.html?v=#{Version}#"
+        }
+    }],
+    "files": [
+        { "path": "drawio", "addressable": true },
+        { "path": "drawio-LICENSE.txt", "addressable": true },
+        { "path": "hub.html", "addressable": true },
+        { "path": "commit.html", "addressable": true },
+        { "path": "createfile.html", "addressable": true },
+        { "path": "img", "addressable": true },
+        { "path": "assets", "addressable": true }
+    ],
+    "scopes":[
+        "vso.code_write"
+    ]
+}

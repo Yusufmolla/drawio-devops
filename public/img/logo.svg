@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <title>DrawIo-Devops</title>
+  <rect width="256" height="256" rx="48" fill="#0f172a"/>
+  <path d="M64 128H128V64H192M128 128V192H192" fill="none" stroke="#38bdf8" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="104" width="48" height="48" rx="12" fill="#f8fafc"/>
+  <rect x="168" y="40" width="48" height="48" rx="12" fill="#38bdf8"/>
+  <rect x="168" y="168" width="48" height="48" rx="12" fill="#2dd4bf"/>
+</svg>

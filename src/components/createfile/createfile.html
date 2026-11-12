@@ -1,0 +1,15 @@
+<div class="createfile flex-column">
+    <div class="flex-row full-width margin-bottom-16">
+        <my-input params="label: 'New file name:', info: 'Use slashes to create multiple subfolders like \'/.attachments/uml/test.png\'', value: fileName, error: fileNameError, type: 'text', isFullWidth: true, autoselect: /(?:\/)?([^/.]+)/, autofocus: true, enter: create.bind($component), tabindex: 1, classes: 'flex-grow'"></my-input>
+    </div>
+    <div class="flex-wrap bolt-button-group flex-row margin-top-16 justify-end">
+        <button class="bolt-button bolt-focus-treatment" role="button" tabindex="0" type="button"
+                data-bind="click: cancel">
+            <span class="bolt-button-text body-m">Cancel</span>
+        </button>
+        <button class="bolt-button primary bolt-focus-treatment" role="button" tabindex="0" type="button"
+                data-bind="css: { 'disabled': !isValid() }, click: create">
+            <span class="bolt-button-text body-m">Create</span>
+        </button>
+    </div>    
+</div>

@@ -1,0 +1,23 @@
+<div class="commit flex-column">
+    <div class="flex-column flex-grow v-scroll-hidden margin-bottom-16">
+        <div class="flex-row full-width" data-bind="visible: mode === 'rename'">
+            <my-input params="label: 'Rename as', value: newFileName, error: newFileNameError, type: 'text', isFullWidth: true, autoselect: /(?:\/)?([^/.]+)/, autofocus: true, enter: commit.bind($component), tabindex: 1, classes: 'flex-grow'"></my-input>
+        </div>
+        <div class="flex-row full-width" data-bind="css: { 'margin-top-16': mode === 'rename' }">
+            <my-input params="label: 'Comment', value: comment, error: commentError, type: 'text', isMultiline: true, isFullWidth: true, tabindex: 2, classes: 'flex-grow'"></my-input>
+        </div>
+        <div class="flex-row full-width margin-top-16">
+            <my-input params="label: 'Branch name', value: branch, error: branchError, type: 'text', isFullWidth: true, tabindex: 3, classes: 'flex-grow'"></my-input>
+        </div>
+    </div>
+    <div class="flex-wrap bolt-button-group flex-row margin-bottom-16 justify-end">
+        <button class="bolt-button bolt-focus-treatment" role="button" tabindex="0" type="button"
+                data-bind="click: cancel">
+            <span class="bolt-button-text body-m">Cancel</span>
+        </button>
+        <button class="bolt-button primary bolt-focus-treatment" role="button" tabindex="0" type="button"
+                data-bind="css: { 'disabled': !isValid() }, click: commit">
+            <span class="bolt-button-text body-m">Commit</span>
+        </button>
+    </div>
+</div>

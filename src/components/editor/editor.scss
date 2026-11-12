@@ -1,0 +1,24 @@
+@use "@styles/_functions.scss" as *;
+
+.editor {
+    position: relative;
+
+    &__renderer {
+        width: 100%;
+        height: 100%;
+        opacity: .5;
+
+        &--initialized {
+            opacity: 1;
+        }
+    }
+
+    &__overlay {
+        position: absolute;
+        background-color: rgba(var(--palette-neutral-2), 1);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}

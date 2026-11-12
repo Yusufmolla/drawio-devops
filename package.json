@@ -1,0 +1,32 @@
+{
+    "name": "drawio",
+    "description": "This extension brings draw.io directly into Azure DevOps, so you can view, create and edit your diagrams.",
+    "version": "0.0.509",
+    "author": "Yusufmolla",
+    "private": true,
+    "type": "module",
+    "icon": "public/img/logo.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Yusufmolla/drawio-devops"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build && python scripts/bundle_editor.py && node scripts/generateExtensionManifest.js",
+        "debug": "vite build --mode debug && python scripts/bundle_editor.py && node scripts/generateExtensionManifest.js",
+        "preview": "vite preview",
+        "package": "tfx extension create --root dist --manifest-globs vss-extension.json --output-path dist && node scripts/cleanupDist.js"
+    },
+    "devDependencies": {
+        "esbuild": "^0.28.0",
+        "sass": "1.99.0",
+        "tfx-cli": "0.23.1",
+        "vite": "8.0.11"
+    },
+    "dependencies": {
+        "azure-devops-extension-api": "5.271.0",
+        "azure-devops-extension-sdk": "4.2.0",
+        "azure-devops-ui": "2.272.0",
+        "knockout": "^3.5.1"
+    }
+}

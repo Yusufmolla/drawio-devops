@@ -1,0 +1,8 @@
+@use "@styles/_functions.scss" as *;
+@use "azure-devops-ui/Components/Spinner/Spinner.scss";
+
+.spinner {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+}

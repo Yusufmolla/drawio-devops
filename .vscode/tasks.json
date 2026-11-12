@@ -1,0 +1,53 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "restore",
+            "detail": "Install npm dependencies",
+            "type": "shell",
+            "group": "build",
+            "command": "npm",
+            "args": [
+                "install",
+                "--verbose"
+            ]
+            "presentation": {
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "build",
+            "detail": "Build application",
+            "type": "npm",
+            "script": "build",
+            "group": "build",
+            "presentation": {
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "debug",
+            "detail": "Debug application",
+            "type": "npm",
+            "script": "debug",
+            "group": "build",
+            "presentation": {
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "package",
+            "detail": "Pack application",
+            "type": "npm",
+            "script": "package",
+            "group": "build",
+            "presentation": {
+                "panel": "new"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

@@ -1,0 +1,85 @@
+<div class="tree flex-grow" data-bind="class: classes, style: { opacity: isHidden() ? 0 : 1 }">
+    <!-- ko if: files().length -->
+    <div class="flex-row bolt-table-card">
+        <div class="bolt-table-container flex-grow v-scroll-auto">
+            <table class="tree__table bolt-table bolt-table-show-lines bolt-list body-m relative scroll-hidden" role="treegrid" tabindex="0">
+                <colgroup>
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                </colgroup>
+                <tbody class="relative">
+                    <tr class="bolt-list-row-spacer invisible" role="presentation">
+                        <td class="bolt-list-cell-spacer invisible" colspan="4"></td>
+                    </tr>
+                    <!-- ko foreach: files -->
+                        <!-- ko template: { name: 'item-template', data: { item: $data, parent: { path: '/' }, selected: $parent.file } } --><!-- /ko -->
+                    <!-- /ko -->
+                    <tr class="bolt-list-row-spacer invisible" role="presentation">
+                        <td class="bolt-list-cell-spacer invisible" colspan="4"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /ko -->
+    <script type="text/html" id="item-template">
+        <tr class="bolt-tree-row bolt-table-row bolt-list-row first-row" role="row" tabindex="-1"
+            data-bind="attr: { title: item.path }, css: { 'selected': item.path === selected()?.path }">
+            <td class="bolt-table-cell-compact bolt-table-cell bolt-list-cell" role="presentation"></td>
+            <td class="bolt-tree-cell bolt-table-cell bolt-list-cell" role="gridcell">
+                <div class="bolt-table-cell-content flex-row flex-center">
+                    <span class="tree__expander fluent-icons-enabled"
+                        data-bind="css: { 'tree__expander--visible': item.isFolder }, click: $component.expand.bind($component, item)">
+                        <span class="bolt-tree-expand-button font-size cursor-pointer flex-noshrink fabric-icon small" role="presentation"
+                            data-bind="css: { 
+                                            'ms-Icon--ChevronDownMed': item.isFolder && item.isExpanded(), 
+                                            'ms-Icon--ChevronRightMed': item.isFolder && !item.isExpanded(),
+                                            'ms-Icon--MoreVertical invisible': !item.isFolder
+                                       },
+                                       style: { 'margin-left': ((item.path.split('/').length - 2) * 16) + 'px' }"></span>
+                    </span>
+                    <span class="bolt-list-cell-child flex-row flex-center bolt-list-cell-text">
+                        <span class="tree__icon fluent-icons-enabled">
+                            <span class="icon-margin medium repos-folder-icon flex-noshrink fabric-icon"
+                                data-bind="css: { 
+                                               'ms-Icon--FabricFolderFill': item.isFolder, 
+                                               'ms-Icon--FileImage': !item.isFolder && item.path.endsWith('.png'),
+                                               'ms-Icon--FileTemplate': !item.isFolder && (item.path.endsWith('.svg') || item.path.endsWith('.drawio')),
+                                               'ms-Icon--Page': !item.isFolder
+                                           }"></span>
+                        </span>
+                        <!-- ko ifnot: item.isFolder -->
+                        <a class="bolt-table-link bolt-link no-underline-link" href="javascript:void(0);" tabindex="0"
+                           data-bind="click: $component.download.bind($component, item)">
+                            <span class="text-ellipsis" data-bind="text: item.path.replace(parent.path, '').replace(/^\//,'')"></span>
+                        </a>
+                        <!-- /ko -->
+                        <!-- ko if: item.isFolder -->
+                        <span class="text-ellipsis body-m" data-bind="text: item.path.replace(parent.path, '').replace(/^\//,''), click: $component.expand.bind($component, item)"></span>
+                        <!-- /ko -->
+                    </span>
+                </div>
+            </td>
+            <td class="bolt-table-cell-side-action bolt-table-cell bolt-list-cell col-2">
+                <div class="bolt-table-cell-content-reveal flex-row justify-center">
+                    <div class="bolt-table-button-more bolt-expandable-button inline-flex-row">
+                        <button class="icon-only bolt-button bolt-icon-button enabled subtle icon-only bolt-focus-treatment" role="button" tabindex="-1" type="button" title="Edit"
+                                data-bind="visible: ['png', 'svg', 'drawio'].includes(item.path.split('.').pop()), click: $component.edit.bind($component, item)">
+                            <span class="fluent-icons-enabled">
+                                <span class="small left-icon flex-noshrink fabric-icon ms-Icon--Edit medium"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </td>
+            <td class="bolt-table-cell-compact bolt-table-cell bolt-list-cell" role="presentation"></td>
+        </tr>
+        <!-- ko if: item.isFolder && item.isExpanded() && item.files().length -->
+            <!-- ko foreach: item.files -->
+                <!-- ko template: { name: 'item-template', data: { item: $data, parent: $parent.item, selected: $parent.selected } } --><!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+    </script>
+</div>

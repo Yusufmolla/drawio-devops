@@ -1,0 +1,92 @@
+<div class="hub bolt-page v-scroll-auto flex-column bolt-page-grey">
+    <div class="bolt-header flex-row flex-noshrink flex-start bolt-header-no-spacing-defined">
+        <div class="bolt-header-content-area flex-row flex-grow flex-self-stretch">
+            <div class="bolt-header-title-area flex-column flex-grow scroll-hidden">
+                <div class="bolt-header-title-row flex-row flex-baseline">
+                    <div class="bolt-header-title title-m l flex-baseline flex-row flex-grow" role="heading">
+                        <div data-bind="text: title"></div>
+                        <div class="bolt-header-description body-m secondary-text flex-grow text-center" data-bind="text: editFileName, visible: editFileName().length"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-self-start bolt-header-commandbar bolt-button-group flex-row">
+                <div class="flex-self-start bolt-header-commandbar-button-group flex-row flex-center flex-grow scroll-hidden rhythm-horizontal-8" style="overflow: visible">
+                    <!-- ko if: editFileContent() !== null -->
+                    <div class="bolt-header-command-item-button inline-flex-row">
+                        <button class="bolt-button bolt-icon-button bolt-focus-treatment" role="menuitem" tabindex="0" type="button"
+                                data-bind="click: rename">
+                            <span class="fluent-icons-enabled">
+                                <span class="left-icon flex-noshrink fabric-icon ms-Icon--Rename medium"></span>
+                            </span>
+                            <span class="bolt-button-text body-m">Rename</span>
+                        </button>
+                    </div>
+                    <div class="bolt-header-command-item-button inline-flex-row">
+                        <button class="bolt-button bolt-icon-button primary bolt-focus-treatment" role="menuitem" tabindex="0" type="button"
+                                data-bind="click: commit, css: { 'disabled': !editFileIsDirty() }">
+                            <span class="fluent-icons-enabled">
+                                <span class="left-icon flex-noshrink fabric-icon ms-Icon--Save medium"></span>
+                            </span>
+                            <span class="bolt-button-text body-m">Commit</span>
+                        </button>
+                    </div>
+                    <div class="bolt-header-command-item-button inline-flex-row">
+                        <button class="bolt-button bolt-icon-button bolt-focus-treatment" role="menuitem" tabindex="0" type="button"
+                                data-bind="click: cancel">
+                            <span class="fluent-icons-enabled">
+                                <span class="left-icon flex-noshrink fabric-icon ms-Icon--Cancel medium"></span>
+                            </span>
+                            <span class="bolt-button-text body-m">Cancel</span>
+                        </button>
+                    </div>
+                    <!-- /ko -->
+                    <div class="bolt-header-command-item-button inline-flex-row">
+                        <button class="icon-only bolt-button bolt-icon-button subtle bolt-focus-treatment" tabindex="0" type="button"
+                                data-bind="click: fullscreen, attr: { title: isFullScreen() ? 'Exit full screen mode' : 'Enter full screen mode'}">
+                            <span class="fluent-icons-enabled">
+                                <span class="left-icon flex-noshrink fabric-icon medium"
+                                      data-bind="css: { 'ms-Icon--FullScreen': !isFullScreen(), 'ms-Icon--BackToWindow': isFullScreen() }"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hub-content page-content flex-column flex-grow">
+        <my-message params="classes: 'margin-top-16'"></my-message>
+        <div class="flex-row flex-grow margin-top-16">
+            <!-- ko if: canUseGit() === false -->
+            <my-zerodata params="title: 'No repositories found', text: 'Either you have been assigned Stakeholder access or there are not any repositories in the project. Please contact your administrator.'"></my-zerodata>
+            <!-- /ko -->
+            <!-- ko if: canUseGit() === true -->
+            <div class="flex-row flex-grow">
+                <div class="flex-column" data-bind="style: { width: isLess() ? '50px' : 'auto'}">
+                    <!-- ko if: canUseGit() && !isLess() -->
+                        <my-menu params="value: repoId, options: repos, optionsText: 'name', optionsValue: 'id', caption: '... choose repository', icon: 'ChevronDownMed', type: 'subtle', classes: 'bolt-header-command-item-button'"></my-menu>
+                    <!-- /ko -->
+                    <my-tree params="repoId: repoId, files: files, file: editFile, isHidden: isLess, classes: 'margin-top-8'"></my-tree>
+                    <div class="flex-wrap bolt-button-group flex-row margin-right-16 margin-top-8">
+                        <button class="bolt-button bolt-icon-button enabled subtle bolt-focus-treatment flex-grow" tabindex="0" type="button"
+                                style="justify-content: flex-start"
+                                data-bind="click: createFile, hidden: isLess, style: { visibility: isLess() || !repoId() ? 'hidden' : 'visible' }">
+                            <span class="fluent-icons-enabled">
+                                <span class="left-icon flex-noshrink fabric-icon ms-Icon--Add medium"></span>
+                            </span>
+                            <span class="bolt-button-text body-m">New diagram</span>
+                        </button>
+                        <button class="bolt-button bolt-icon-button enabled subtle bolt-focus-treatment icon-only" tabindex="0" type="button"
+                                data-bind="click: () => isLess(!isLess()), attr: { title: isLess() ? 'Show more information' : 'Show less information'}">
+                            <span class="fluent-icons-enabled">
+                                <span class="left-icon flex-noshrink fabric-icon medium"
+                                      data-bind="css: { 'ms-Icon--DoubleChevronLeft': !isLess(), 'ms-Icon--DoubleChevronRight': isLess() }"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <my-editor params="isLoading: isLoading, content: editFileContent, isDirty: editFileIsDirty, exportTrigger: editFileExportTrigger, exportData: editFileExport, fileName: editFileName, templateTrigger: editFileTemplateTrigger"></my-editor>
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

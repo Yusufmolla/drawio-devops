@@ -1,0 +1,9 @@
+@use "sass:math";
+
+@function rem($px, $base: 16px) {
+    @if math.unit($px) != "px" {
+        @error "rem() expects px value, got #{$px}";
+    }
+
+    @return math.div($px, $base) * 1rem;
+}

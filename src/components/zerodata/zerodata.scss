@@ -1,0 +1,15 @@
+@use "azure-devops-ui/Components/ZeroData/ZeroData.scss";
+
+.zerodata {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    .vss-ZeroData {
+        &Item {
+            &--svg {
+                color: rgba(var(--palette-primary), 1);
+            }
+        }
+    }
+}

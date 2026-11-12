@@ -1,0 +1,23 @@
+@use "@styles/_functions.scss" as *;
+@use "azure-devops-ui/Components/Button/Button.scss";
+@use "azure-devops-ui/Components/Button/ExpandableButton.scss";
+@use "azure-devops-ui/Components/Menu/Menu.scss";
+@use "azure-devops-ui/Components/Menu/MenuButton.scss";
+@use "azure-devops-ui/Components/Callout/Callout.scss";
+@use "azure-devops-ui/Components/List/List.scss";
+
+.menu {
+    position: relative;
+    overflow: visible;
+
+    &__items {
+        display: none;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+
+        &--active {
+            display: block;
+        }
+    }
+}

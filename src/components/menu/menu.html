@@ -1,0 +1,45 @@
+<div class="menu bolt-expandable-button inline-flex-row" data-bind="class: classes">
+    <button class="bolt-button enabled bolt-focus-treatment" role="button" tabindex="0" type="button"
+            data-bind="css: { 'active': isActive }, click: () => isActive(!isActive()), css: { 'subtle': type() === 'subtle', 'primary': type() === 'primary' }">
+        <span class="bolt-button-text body-m" data-bind="text: text, visible: caption().length"></span>
+        <!-- if: icon().length -->
+        <span class="fluent-icons-enabled">
+            <span class="icon-right font-weight-normal flex-noshrink fabric-icon small" data-bind="class: 'ms-Icon--' + icon()"></span>
+        </span>
+        <!-- /ko -->
+    </button>
+    <div class="menu__items bolt-callout absolute flex-row overflow" tabindex="-1"
+         data-bind="css: { 'menu__items--active': isActive }">
+        <div class="bolt-contextual-menu flex-column custom-scrollbar depth-8 bolt-callout-content bolt-callout-shadow" role="dialog">
+            <div class="bolt-contextualmenu-container">
+                <div class="bolt-menu-container no-outline" tabindex="-1">
+                    <div class="bolt-menu-spacer"></div>
+                    <table class="bolt-menu bolt-list body-m relative scroll-hidden" role="menu" tabindex="0">
+                        <tbody class="relative" role="presentation" data-bind="foreach: options">
+                            <tr class="bolt-menuitem-row bolt-list-row bolt-menuitem-row-normal cursor-pointer" role="menuitem" tabindex="-1"
+                                data-bind="click: () => { $parent.isActive(false); $parent.value($data[$parent.optionsValue]); }">
+                                <td class="bolt-menuitem-cell bolt-list-cell">
+                                    <div class="bolt-menuitem-cell-content flex-row"></div>
+                                </td>
+                                <td class="bolt-menuitem-cell bolt-list-cell" data-bind="visible: $parent.optionsIcon.length">
+                                    <div class="bolt-menuitem-cell-content bolt-menuitem-cell-icon flex-row">
+                                        <span class="fluent-icons-enabled">
+                                            <span class="flex-noshrink fabric-icon" data-bind="class: 'ms-Icon--' + $data[$parent.optionsIcon]"></span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="bolt-menuitem-cell bolt-list-cell">
+                                    <div class="bolt-menuitem-cell-content bolt-menuitem-cell-text flex-row" data-bind="text: $data[$parent.optionsText]"></div>
+                                </td>
+                                <td class="bolt-menuitem-cell bolt-list-cell">
+                                    <div class="bolt-menuitem-cell-content flex-row"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="bolt-menu-spacer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

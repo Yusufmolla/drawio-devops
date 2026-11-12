@@ -1,0 +1,7 @@
+@use "@styles/_functions.scss" as *;
+@use "azure-devops-ui/Components/MessageCard/MessageCard.scss";
+@use "azure-devops-ui/Components/MessageBar/MessageBar.scss";
+
+.message {
+    flex-shrink: 0;
+}

@@ -1,0 +1,46 @@
+@use "@styles/_functions.scss" as *;
+@use "azure-devops-ui/Components/List/List.scss";
+@use "azure-devops-ui/Components/TreeEx/Tree.scss";
+@use "azure-devops-ui/Components/TreeEx/TreeExpand.scss";
+@use "azure-devops-ui/Components/Link/Link.scss";
+
+.tree {
+    width: rem(300px);
+    overflow-y: auto;
+    margin-right: rem(16px);
+
+    &__expander {
+        visibility: hidden;
+
+        &--visible {
+            visibility: visible;
+        }
+    }
+
+    &__icon {
+        .ms-Icon--FabricFolderFill {
+            color: var(--icon-folder-color, #dcb67a);
+        }
+    }
+
+    &__table {
+        width: 100%;
+
+        colgroup {
+            col {
+                &:first-child,
+                &:last-child {
+                    width: rem(8px);
+                }
+
+                &:nth-child(2) {
+                    width: 100%;
+                }
+
+                &:nth-child(3) {
+                    width: 42px;
+                }
+            }
+        }
+    }
+}
