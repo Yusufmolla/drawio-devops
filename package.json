@@ -1,7 +1,7 @@
 {
     "name": "drawio",
     "description": "This extension brings draw.io directly into Azure DevOps, so you can view, create and edit your diagrams.",
-    "version": "0.0.509",
+    "version": "0.1.0",
     "author": "Yusufmolla",
     "private": true,
     "type": "module",

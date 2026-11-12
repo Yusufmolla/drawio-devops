@@ -30,7 +30,9 @@ The [Build Marketplace VSIX workflow](https://github.com/Yusufmolla/drawio-devop
 3. Open the completed workflow run and download **drawio-devops-vsix** under **Artifacts**.
 4. Extract the ZIP and upload its `.vsix` through **New extension → Azure DevOps** in the Marketplace portal.
 
-Without a publisher ID, the workflow builds a test package using `local-drawio-pilot`; rebuild with your own ID before uploading. The manifest is configured for a public listing. This workflow builds the package; Marketplace upload is manual and needs no publishing token in GitHub. For each Marketplace update, increase the version in `package.json` and the root package entries in `package-lock.json` before rebuilding.
+The default Marketplace publisher ID is `Molla`. A manual input or repository variable overrides this default. The manifest is configured for a public listing. Marketplace upload is manual and needs no publishing token in GitHub. For each Marketplace update, increase the version in `package.json` and the root package entries in `package-lock.json` before rebuilding.
+
+Pushing a tag matching the package version (for example `v0.1.0`) also creates a [GitHub release](https://github.com/Yusufmolla/drawio-devops/releases) with the VSIX attached after a successful build. GitHub releases and Marketplace publication are separate steps.
 
 ## Local build
 
@@ -45,7 +47,7 @@ npm run package
 
 The build downloads draw.io **32.6.10** from the upstream GitHub release and verifies its SHA-256 checksum. The downloaded `draw-editor.war` is cached locally and excluded from Git. Internet access is required for dependency installation and the first editor download.
 
-`npm run package` creates a `.vsix` in `dist/` and removes the intermediate build files. Upload the VSIX to your Azure DevOps Marketplace publisher. This is separate from publishing the source code on GitHub. `AZDO_PUBLISHER` must match your Marketplace publisher ID; without it, the build uses `local-drawio-pilot`.
+`npm run package` creates a `.vsix` in `dist/` and removes the intermediate build files. Upload the VSIX to your Azure DevOps Marketplace publisher. This is separate from publishing the source code on GitHub. `AZDO_PUBLISHER` must match your Marketplace publisher ID; without it, the build uses `Molla`.
 
 The bundled editor uses lockdown mode and a content security policy that restricts external requests. The extension still communicates with Azure DevOps to read and commit diagrams and requires the `vso.code_write` scope. Use repository permissions to control access.
 

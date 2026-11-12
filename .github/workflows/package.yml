@@ -3,6 +3,7 @@ name: Build Marketplace VSIX
 on:
   push:
     branches: [main]
+    tags: ['v*']
   workflow_dispatch:
     inputs:
       publisher:
@@ -19,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      AZDO_PUBLISHER: ${{ inputs.publisher || vars.AZDO_PUBLISHER || 'local-drawio-pilot' }}
+      AZDO_PUBLISHER: ${{ inputs.publisher || vars.AZDO_PUBLISHER || 'Molla' }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -33,6 +34,9 @@ jobs:
           python-version: '3.13'
       - name: Install dependencies
         run: npm ci
+      - name: Check release version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: node -e "if (process.env.GITHUB_REF_NAME !== 'v' + JSON.parse(require('fs').readFileSync('package.json')).version) throw new Error('Release tag must match package.json version');"
       - name: Build extension and bundled editor
         run: npm run build
       - name: Create VSIX
@@ -54,3 +58,26 @@ jobs:
           else
             echo 'The package uses your configured Marketplace publisher. Upload the VSIX in the Marketplace publishing portal.' >> "$GITHUB_STEP_SUMMARY"
           fi
+
+  release:
+    name: Publish GitHub release
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: drawio-devops-vsix
+          path: package
+      - name: Publish release with VSIX
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$RELEASE_TAG" package/*.vsix \
+            --verify-tag \
+            --title "DrawIo-Devops $RELEASE_TAG" \
+            --notes "DrawIo-Devops for Azure DevOps. Includes the bundled draw.io editor, project branding, and Marketplace-compatible asset identifiers. Download the VSIX below and upload it under the Molla Marketplace publisher."
