@@ -20,4 +20,4 @@ After installing the extension from the Marketplace, you need to enable it in th
 Draw.io can be used for editing files with `.drawio` extension (native draw.io format). You can also edit `.png` and `.svg` files, if they were saved from draw.io as **Editable Bitmap Image** or **Editable Vector Image**.
 
 # Project
-Source code, build instructions and issue tracking are available at [Yusufmolla/drawio-devops](https://github.com/Yusufmolla/drawio-devops).
+Source code and issue tracking are available at [Yusufmolla/drawio-devops](https://github.com/Yusufmolla/drawio-devops).
