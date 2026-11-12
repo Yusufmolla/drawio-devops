@@ -1,0 +1,56 @@
+name: Build Marketplace VSIX
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publisher:
+        description: Marketplace publisher ID (overrides repository variable AZDO_PUBLISHER)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Build and package extension
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      AZDO_PUBLISHER: ${{ inputs.publisher || vars.AZDO_PUBLISHER || 'local-drawio-pilot' }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build extension and bundled editor
+        run: npm run build
+      - name: Create VSIX
+        run: npm run package
+      - name: Upload Marketplace package
+        uses: actions/upload-artifact@v4
+        with:
+          name: drawio-devops-vsix
+          path: dist/*.vsix
+          if-no-files-found: error
+          retention-days: 30
+      - name: Explain download and publisher
+        shell: bash
+        run: |
+          echo '### Marketplace package' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Download **drawio-devops-vsix** from the Artifacts section of this run and extract the VSIX.' >> "$GITHUB_STEP_SUMMARY"
+          if [ "$AZDO_PUBLISHER" = 'local-drawio-pilot' ]; then
+            echo '**Test package:** configure the repository Actions variable `AZDO_PUBLISHER` or supply your publisher ID with Run workflow, then rebuild before uploading to Marketplace.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'The package uses your configured Marketplace publisher. Upload the VSIX in the Marketplace publishing portal.' >> "$GITHUB_STEP_SUMMARY"
+          fi

@@ -5,7 +5,7 @@
     "name": "DrawIo-Devops",
     "description": "#{Description}#",
     "publisher": "#{Publisher}#",
-    "public": false,
+    "public": true,
     "categories": [
         "Azure Boards"
     ], 
